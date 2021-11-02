@@ -25,8 +25,14 @@ window.onload = async () => {
   const labels = tf.tensor(ys);
   // 调用训练方法
   await model.fit(inputs, labels, {
-    batchSize: 1, // 设置小批量数据量
-    epochs: 100, // 迭代整个训练数据的次数
+    batchSize: 4, // 设置小批量数据量
+    epochs: 200, // 迭代次数
     callbacks: tfvis.show.fitCallbacks({ name: '训练过程' }, ['loss']),
   });
+
+  // 预测x为5的时候y值多少
+  const output = model.predict(tf.tensor([5]));
+  // output.print();
+  // console.log(output.dataSync());
+  alert(`x 为 5 时，预测 y 值为 ${output.dataSync()[0]}`);
 };
